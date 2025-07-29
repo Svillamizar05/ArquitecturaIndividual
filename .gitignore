@@ -1,0 +1,1 @@
+-e ".pyc\npycache/\ndb.sqlite3\n.env\n.log\n*.sqlite3\n/static/\n/media/\n.vscode/" 
