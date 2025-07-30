@@ -1,0 +1,9 @@
+{% extends 'pages/base.html' %}
+{% block title %} {{ title }} {% endblock %}
+{% block content %}
+<div class="text-center">
+  <h2>{{ title }}</h2>
+  <p>Product "{{ name }}" created with price ${{ price }} ✅</p>
+  <a class="btn btn-primary" href="{% url 'form' %}">Create another</a>
+</div>
+{% endblock %}

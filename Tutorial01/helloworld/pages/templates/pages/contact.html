@@ -1,0 +1,16 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block header_title %}{{ subtitle }}{% endblock %}
+
+{% block content %}
+<div class="container text-center">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <p class="lead"><strong>Email:</strong> {{ email }}</p>
+      <p class="lead"><strong>Address:</strong> {{ address }}</p>
+      <p class="lead"><strong>Phone:</strong> {{ phone }}</p>
+    </div>
+  </div>
+</div>
+{% endblock %}
