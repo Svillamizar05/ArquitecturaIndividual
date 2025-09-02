@@ -6,6 +6,25 @@ from django.views import View
 from django import forms
 from .models import Product
 
+#para version sin dependencias
+from .utils import ImageLocalStorage
+
+def ImageViewFactory(image_storage):
+    class ImageView(View):
+        template_name = 'images/index.html'
+
+
+        def get(self, request):
+            image_url = request.session.get('image_url', '')
+        
+            return render(request, self.template_name, {'image_url': image_url})
+
+        def post(self, request):
+            image_url = image_storage.store(request)
+            request.session['image_url'] = image_url
+            return redirect('image_index')
+    return ImageView
+
 # Vista para la página de inicio
 class HomePageView(TemplateView):
     template_name = 'home.html'
@@ -144,7 +163,7 @@ class CartView(View):
         }
 
         return render(request, self.template_name, view_data)
-
+    
     def post(self, request, product_id):
         # Get cart products from session and add the new product
         cart_product_data = request.session.get('cart_product_data', {})
@@ -161,3 +180,23 @@ class CartRemoveAllView(View):
             del request.session['cart_product_data']
 
         return redirect('cart_index')
+    
+
+
+
+
+
+
+#para version sin dependencias
+class ImageViewNoDI(View):
+    template_name = 'imagesnotdi/index.html'
+
+    def get(self, request):
+        image_url = request.session.get('image_url', '')
+        return render(request, self.template_name, {'image_url': image_url})
+
+    def post(self, request):
+        image_storage = ImageLocalStorage()  # instanciado directamente
+        image_url = image_storage.store(request)
+        request.session['image_url'] = image_url
+        return redirect('imagenodi_index')
